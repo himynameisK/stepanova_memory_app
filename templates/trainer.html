@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренажер памяти</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Тренажер памяти</h1>
+            <nav>
+                <a href="/reference" class="btn btn-secondary" style="margin-top: 10px; display: inline-block;">
+                    Справочник всех значений
+                </a>
+            </nav>
+            <div class="progress-info">
+                <span id="progress-text">Вопрос 0 из 30</span>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+        </header>
+
+        <div id="start-screen" class="screen">
+            <h2>Выберите упражнение</h2>
+            <div class="level-selector">
+                <button class="btn btn-primary" onclick="startTrainer('image_to_number')">
+                    Упражнение 1: Картинка → Число
+                </button>
+                <button class="btn btn-primary" onclick="startTrainer('number_to_word')">
+                    Упражнение 2: Число → Слово
+                </button>
+            </div>
+        </div>
+
+        <!-- Экран для упражнения 1: Картинка → Число -->
+        <div id="trainer-screen-ex1" class="screen hidden">
+            <div class="trainer-container">
+                <div class="column">
+                    <h3>1. Картинка</h3>
+                    <div class="image-container">
+                        <img id="trainer-image" src="" alt="Картинка">
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <h3>2. Ваш ответ</h3>
+                    <div class="answer-container">
+                        <input 
+                            type="number" 
+                            id="answer-input" 
+                            placeholder="Введите число"
+                            min="0"
+                            max="100"
+                            onkeypress="handleKeyPress(event)"
+                        >
+                        <button class="btn btn-primary" onclick="checkAnswer()" id="check-btn">
+                            Проверить
+                        </button>
+                        <div id="attempts-info" class="attempts-info"></div>
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <h3>3. Результат</h3>
+                    <div id="result-container" class="result-container">
+                        <span class="placeholder">Ожидание ответа...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран для упражнения 2: Число → Слово -->
+        <div id="trainer-screen-ex2" class="screen hidden">
+            <div class="trainer-container">
+                <div class="column">
+                    <h3>1. Результат</h3>
+                    <div class="image-container" id="result-image-container">
+                        <div id="result-placeholder" class="result-placeholder"></div>
+                        <img id="trainer-image-ex2" src="" alt="Картинка" class="hidden">
+                        <div id="cross-result" class="cross-result hidden">✗</div>
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <h3>2. Число</h3>
+                    <div class="number-display">
+                        <div id="number-display" class="number-value">-</div>
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <h3>3. Ваш ответ</h3>
+                    <div class="answer-container">
+                        <input 
+                            type="text" 
+                            id="answer-input-ex2" 
+                            placeholder="Введите слово"
+                            onkeypress="handleKeyPress(event)"
+                        >
+                        <button class="btn btn-primary" onclick="checkAnswer()" id="check-btn-ex2">
+                            Проверить
+                        </button>
+                        <div id="attempts-info-ex2" class="attempts-info"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="results-screen" class="screen hidden">
+            <h2>Результаты тренировки</h2>
+            <div class="results-summary">
+                <div class="stat-card">
+                    <div class="stat-value" id="correct-count">0</div>
+                    <div class="stat-label">Верных ответов</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-count">30</div>
+                    <div class="stat-label">Всего вопросов</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="percentage">0%</div>
+                    <div class="stat-label">Процент правильности</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="restartTrainer()">
+                Начать заново
+            </button>
+            <button class="btn btn-secondary" onclick="goToAdmin()">
+                Админ-панель
+            </button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/exercises/exercise1_image_to_number.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/exercises/exercise2_number_to_word.js') }}"></script>
+    <script src="{{ url_for('static', filename='trainer.js') }}"></script>
+</body>
+</html>
+

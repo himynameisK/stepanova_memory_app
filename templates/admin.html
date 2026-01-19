@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Админ-панель</h1>
+            <nav>
+                <a href="/" class="btn btn-secondary">Вернуться к тренажеру</a>
+            </nav>
+        </header>
+
+        <div class="admin-content">
+            <section class="admin-section">
+                <h2>Доступные изображения</h2>
+                <div id="images-list" class="images-grid">
+                    <p>Загрузка...</p>
+                </div>
+            </section>
+
+            <section class="admin-section">
+                <h2>Результаты тренировок</h2>
+                <div id="results-list" class="results-list">
+                    <p>Загрузка...</p>
+                </div>
+            </section>
+
+            <section class="admin-section">
+                <h2>Настройки</h2>
+                <div class="settings">
+                    <div class="setting-item">
+                        <label>Количество вопросов в простом уровне:</label>
+                        <input type="number" id="questions-count" value="30" min="1" max="100">
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        Сохранить настройки
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</body>
+</html>
+

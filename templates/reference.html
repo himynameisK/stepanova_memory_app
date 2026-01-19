@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Справочник - Тренажер памяти</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Справочник всех значений</h1>
+            <nav>
+                <a href="/" class="btn btn-secondary">Вернуться к тренажеру</a>
+            </nav>
+        </header>
+
+        <div class="screen">
+            <div class="reference-grid">
+                {% for number, image_data in images %}
+                <div class="reference-card">
+                    <div class="reference-number">{{ number }}</div>
+                    <div class="reference-image">
+                        <img src="{{ url_for('serve_image', filename=image_data.filename) }}" 
+                             alt="{{ image_data.name }}"
+                             loading="lazy">
+                    </div>
+                    <div class="reference-name">{{ image_data.name }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
