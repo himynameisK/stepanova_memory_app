@@ -1,0 +1,22 @@
+[Unit]
+Description=Stepanova Memory App (Flask + Gunicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/stepanova_memory_app
+ExecStart=/root/stepanova_memory_app/.venv/bin/gunicorn \
+    --bind 0.0.0.0:5000 \
+    --workers 4 \
+    --worker-class sync \
+    --timeout 120 \
+    --access-logfile /root/stepanova_memory_app/logs/access.log \
+    --error-logfile /root/stepanova_memory_app/logs/error.log \
+    --log-level info \
+    app:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
